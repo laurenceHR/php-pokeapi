@@ -7,3 +7,4 @@ $Route->get('/', function() {
 });
 
 $Route->get('/pokemon/{id?}','PokemonController@index');
+$Route->get('/pokemon/{id}/types','PokemonController@types');

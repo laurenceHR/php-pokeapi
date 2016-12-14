@@ -27,4 +27,16 @@ class PokemonController extends BaseController{
 			$this->toJson($Pokemon);
 		}
 	}
+	public function types($id){
+		$Pokemon = DB::table('pokemon')->where('id',$id)->first();
+		if($Pokemon){
+			$Types = DB::table('pokemon_types as pt')
+					   ->leftJoin('types as t','pt.type_id','=','t.id')
+					   ->select('t.id','pt.slot','t.identifier as name')
+					   ->where('pt.pokemon_id',$id)
+					   ->get();
+			$Pokemon->types = $Types;
+		}
+		$this->toJson($Pokemon);
+	}
 }
